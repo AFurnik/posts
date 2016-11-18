@@ -1,0 +1,21 @@
+{% extends 'main.twig' %}
+{% block styles %}
+  {{ parent() }}
+  <link rel="stylesheet" href="css/sign.css">
+{% endblock %}
+{% block main %}
+  <div class="sign-wrapper">
+    <div class="sign-container">
+      <h1 class="sign-logo">Posts</h1>
+      <h2 class="sign-header">{{ header }}</h2>
+      <form class="sign-form" action="{{ action }}" method="post">
+        <input class="sign-input" type="text" name="name" placeholder="Username">
+        <input class="sign-input" type="password" name="name" placeholder="Password">
+        <div class="sign-actions">
+          <button type="submit" class="sign-button">{{ button }}</button>
+          <a href="{{ anotherActionLink }}" class="sign-another-action">{{ anotherAction }}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

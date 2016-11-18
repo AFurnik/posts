@@ -1,0 +1,78 @@
+.sign-wrapper {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-container {
+  max-width: 380px;
+  padding: 20px;
+}
+.sign-logo {
+  color: #2a3239;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.sign-header {
+  font-weight: normal;
+  color: #4e5b68;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.sign-form {
+
+}
+.sign-input {
+  width: 360px;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+  color: #4e5b68;
+  border: 0;
+  box-shadow: inset 0px 0px 0px 1px rgba(43, 50, 57, 0.35), inset 0 5px 3px -2px rgba(43, 50, 57, 0.05), 0 0 4px 1px rgba(69, 140, 207, 0);
+  font-size: 18px;
+  padding: 15px 13px;
+  line-height: 22px;
+  margin-bottom: 14px;
+  font-family: 'Ubuntu', sans-serif;
+}
+.sign-input:focus {
+  outline: none;
+}
+.sign-actions {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.sign-button {
+  border: 0;
+  color: white;
+  background-color: #458CD5;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 15px 25px;
+  border-radius: 3px;
+  transition: .2s background-color ease-in-out;
+}
+.sign-button:hover {
+  background-color: #317abf;
+}
+.sign-button::after {
+  content: '>';
+  margin-left: 15px;
+  display: inline-block;
+}
+
+.sign-another-action {
+  color: #c2c3c4;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .2s color ease-in-out;
+}
+.sign-another-action:hover {
+  color: #c2c3c4;
+}
