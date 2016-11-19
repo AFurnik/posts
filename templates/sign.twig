@@ -8,14 +8,20 @@
     <div class="sign-container">
       <h1 class="sign-logo">Posts</h1>
       <h2 class="sign-header">{{ header }}</h2>
-      <form class="sign-form" action="{{ action }}" method="post">
-        <input class="sign-input" type="text" name="name" placeholder="Username">
-        <input class="sign-input" type="password" name="name" placeholder="Password">
+      <form id="form" class="sign-form" action="{{ action }}" method="post" autocomplete="off">
+        <input id="name" class="sign-input" type="text" name="name" placeholder="Username">
+        <div id="name-desc" class="sign-desc sign-desc-error"></div>
+        <input id="password" class="sign-input" type="password" name="password" placeholder="Password">
+        <div id="password-desc" class="sign-desc sign-desc-error"></div>
         <div class="sign-actions">
-          <button type="submit" class="sign-button">{{ button }}</button>
+          <button id="button" type="submit" class="sign-button">{{ button }}</button>
           <a href="{{ anotherActionLink }}" class="sign-another-action">{{ anotherAction }}</a>
         </div>
       </form>
     </div>
   </div>
+{% endblock %}
+{% block scripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="js/{{ path }}.js"></script>
 {% endblock %}

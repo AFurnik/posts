@@ -1,0 +1,15 @@
+{% extends 'sign.twig' %}
+{% block nameErrorMessage %}
+  {% if nameError is defined %}
+    <div class="error-message">
+      {{nameError}}
+    </div>
+  {% endif %}
+{% endblock %}
+{% block passwordErrorMessage %}
+  {% if passwordError is defined %}
+    <div class="error-message">
+      {{passwordError}}
+    </div>
+  {% endif %}
+{% endblock %}
