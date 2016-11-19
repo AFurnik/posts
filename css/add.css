@@ -1,0 +1,91 @@
+.add-header {
+  color: #2a3239;
+  margin: 0;
+}
+
+.add-form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.add-input {
+  box-sizing: border-box;
+  width: 100%;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+  color: #4e5b68;
+  border: 0;
+  box-shadow: inset 0px 0px 0px 1px rgba(43, 50, 57, 0.35), inset 0 5px 3px -2px rgba(43, 50, 57, 0.05), 0 0 4px 1px rgba(69, 140, 207, 0);
+  font-size: 18px;
+  padding: 15px 13px;
+  line-height: 22px;
+  font-family: 'Ubuntu', sans-serif;
+}
+.add-input:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 1px rgba(69, 140, 207, 0.85), inset 0 5px 3px -2px rgba(43, 50, 57, 0.05), 0 0 4px 1px rgba(69, 140, 207, 0);
+}
+
+.add-text {
+  resize: vertical;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 300px;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+  color: #4e5b68;
+  border: 0;
+  box-shadow: inset 0px 0px 0px 1px rgba(43, 50, 57, 0.35), inset 0 5px 3px -2px rgba(43, 50, 57, 0.05), 0 0 4px 1px rgba(69, 140, 207, 0);
+  font-size: 18px;
+  padding: 15px 13px;
+  line-height: 22px;
+  margin-top: 20px;
+  font-family: 'Ubuntu', sans-serif;
+}
+.add-text:focus {
+  outline: none;
+  box-shadow: inset 0px 0px 0px 1px rgba(69, 140, 207, 0.85), inset 0 5px 3px -2px rgba(43, 50, 57, 0.05), 0 0 4px 1px rgba(69, 140, 207, 0);
+}
+
+.add-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.add-button {
+  margin-right: 20px;
+  color: white;
+  background-color: #458CD5;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 15px 30px;
+  border-radius: 3px;
+  transition: .2s background-color ease-in-out;
+  border: none;
+}
+.add-button:hover {
+  background-color: #317abf;
+}
+
+.add-reset-button {
+  box-sizing: border-box;
+  border: 1px solid #458CD5;
+  color: #458CD5;
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 13px 28px;
+  border-radius: 3px;
+  transition: .2s background-color ease-in-out;
+
+}
+.add-reset-button:hover {
+  background-color: #e2e2e2;
+}

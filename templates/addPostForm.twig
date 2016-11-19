@@ -1,0 +1,17 @@
+{% extends 'layout.twig' %}
+{% block styles %}
+  {{ parent() }}
+  <link rel="stylesheet" href="./css/add.css">
+{% endblock %}
+{% block content %}
+  <h1 class="add-header">Add new post</h1>
+  <form class="add-form" action="./addpost" method="post">
+    <input type="text" name="title" class="add-input" placeholder="Title">
+    <textarea name="text" class="add-text" placeholder="Type your thoughts"></textarea>
+    <div class="add-actions">
+      <button type="submit" class="add-button">Create</button>
+      <button type="reset" class="add-reset-button">Reset</button>
+    </div>
+
+  </form>
+{% endblock %}

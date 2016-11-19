@@ -1,6 +1,7 @@
 {
     "require": {
         "klein/klein": "^2.1",
-        "twig/twig": "~1.0"
+        "twig/twig": "~1.0",
+        "erusev/parsedown": "^1.6"
     }
 }

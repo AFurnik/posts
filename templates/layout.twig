@@ -10,20 +10,23 @@
         {% block header %}
           <h1 class="logo">Posts</h1>
           <div class="menu">
-            <span class="person" id="account">Person</span>
-            <ul class="account-menu" id="menu">
-              <li class="account-menu-item">
-                <a href="#">Add post</a>
-              </li>
-              <li class="account-menu-item">
-                <a href="#">My posts</a>
-              </li>
-              <li class="account-menu-item">
-                <a href="#">Log out</a>
-              </li>
-            </ul>
-            <!-- <a href="#" class="signin-link">Sign in</a>
-            <a href="#" class="register-link">Register</a> -->
+            {% if user is defined %}
+              <span class="person" id="account">{{ user }}</span>
+              <ul class="account-menu" id="menu">
+                <li class="account-menu-item">
+                  <a href="./addpost">Add post</a>
+                </li>
+                <li class="account-menu-item">
+                  <a href="#">My posts</a>
+                </li>
+                <li class="account-menu-item">
+                  <a href="./logout">Log out</a>
+                </li>
+              </ul>
+            {% else %}
+              <a href="./signin" class="signin-link">Sign in</a>
+              <a href="./register" class="register-link">Register</a>
+            {% endif %}
           </div>
         {% endblock %}
       </div>
@@ -31,76 +34,22 @@
     <main class="main">
       <div class="container">
         {% block content %}
-          <article class="article">
-            <div class="article-content">
-              <div class="article-header">
-                <div class="title">My own title</div>
-                <div class="article-about">
-                  <div class="author">Person</div>
-                  <div class="date">sep 23, 2016</div>
+          {% for post in posts %}
+            <article class="article">
+              <div class="article-content">
+                <div class="article-header">
+                  <div class="title">{{ post.title }}</div>
+                  <div class="article-about">
+                    <div class="author">{{ post.user }}</div>
+                    <div class="date">{{ post.date }}</div>
+                  </div>
+                </div>
+                <div class="content">
+                {{ post.text|raw }}
                 </div>
               </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </article>
-          <article class="article">
-            <div class="article-content">
-              <div class="article-header">
-                <div class="title">My own title</div>
-                <div class="article-about">
-                  <div class="author">Person</div>
-                  <div class="date">sep 23, 2016</div>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </article>
-          <article class="article">
-            <div class="article-content">
-              <div class="article-header">
-                <div class="title">My own title</div>
-                <div class="article-about">
-                  <div class="author">Person</div>
-                  <div class="date">sep 23, 2016</div>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </article>
-          <article class="article">
-            <div class="article-content">
-              <div class="article-header">
-                <div class="title">My own title</div>
-                <div class="article-about">
-                  <div class="author">Person</div>
-                  <div class="date">sep 23, 2016</div>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </article>
-          <article class="article">
-            <div class="article-content">
-              <div class="article-header">
-                <div class="title">My own title</div>
-                <div class="article-about">
-                  <div class="author">Person</div>
-                  <div class="date">sep 23, 2016</div>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </article>
+            </article>
+          {% endfor %}
         {% endblock %}
       </div>
     </main>

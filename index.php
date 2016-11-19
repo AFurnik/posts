@@ -31,18 +31,72 @@
           "root"
         );
     });
+    $app->register('parse', function() {
+      return new Parsedown();
+    });
   });
 
   // API
   $router->respond('GET', '/', function(
     $request, $response, $service, $app
   ) {
-    echo $app->twig->render(
-      'layout.twig',
-      array(
-        'title' => 'Dashboard'
-      )
+    session_start();
+
+    $posts_stmt = $app->db->prepare(
+      'SELECT * FROM publications'
     );
+    $atricles_stmt = $app->db->prepare(
+      'SELECT text FROM articles
+      WHERE publication_id = :p_id'
+    );
+    $users_stmt = $app->db->prepare(
+      'SELECT user_name FROM users
+      WHERE user_id = :u_id'
+    );
+    $posts_stmt->execute();
+    $posts = $posts_stmt->fetchAll(PDO::FETCH_ASSOC);
+    $result = array();
+
+    foreach ($posts as $key => $post) {
+      $user_id = $post['author_id'];
+      $publication_id = $post['publication_id'];
+
+      $users_stmt->bindValue(':u_id', $user_id);
+      $users_stmt->execute();
+      $user_name = $users_stmt->fetch(PDO::FETCH_ASSOC);
+
+      $atricles_stmt->bindValue(':p_id', $publication_id);
+      $atricles_stmt->execute();
+      $text = $atricles_stmt->fetch(PDO::FETCH_ASSOC);
+
+
+      $result[$key] = array(
+        'title' => $post['title'],
+        'date' => $post['creation_date'],
+        'user' => $user_name['user_name'],
+        'text' => $app->parse->text($text['text'])
+      );
+    }
+
+    if (isset($_SESSION['user_id'])) {
+      echo $app->twig->render(
+        'layout.twig',
+        array(
+          'title' => 'Dashboard',
+          'user' => $_SESSION['user_name'],
+          'posts' => $result
+        )
+      );
+    } else {
+      echo $app->twig->render(
+        'layout.twig',
+        array(
+          'title' => 'Dashboard',
+          'posts' => $result
+        )
+      );
+    }
+
   });
 
   $router->respond('GET', '/signin', function(
@@ -61,7 +115,6 @@
       )
     );
   });
-
   $router->respond('GET', '/register', function(
     $request, $response, $service, $app
   ) {
@@ -94,7 +147,6 @@
       'INSERT INTO users (user_name, user_password)
       VALUES (:nm, :pw)'
     );
-
     if (
       !empty($user) &&
       strlen($_POST['name']) >= 3
@@ -106,13 +158,10 @@
       $reg->bindValue(':pw', md5($_POST['password']));
       $reg->execute();
       $lastId = $app->db->lastInsertId();
-
       $_SESSION['user_name'] = $_POST['name'];
       $_SESSION['user_id'] = $lastId;
-
       $response->redirect('./', $code = 302);
     }
-
   });
   $router->respond('POST', '/user', function(
     $request, $response, $service, $app
@@ -125,7 +174,6 @@
     $stmt->bindValue(':nm', $_POST['name']);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
     if (!empty($user)) {
       echo "yes";
     } else {
@@ -157,6 +205,68 @@
     }
   });
 
+  $router->respond('GET', '/logout', function(
+    $request, $response, $service, $app
+  ) {
+    session_start();
+    session_destroy();
+    $response->redirect('./', $code = 302);
+  });
+
+  $router->respond('GET', '/addpost', function(
+    $request, $response, $service, $app
+  ) {
+    session_start();
+    if (isset($_SESSION['user_id'])) {
+      echo $app->twig->render(
+        'addPostForm.twig',
+        array(
+          'title' => 'New post',
+          'user' => $_SESSION['user_name']
+        )
+      );
+    } else {
+      $response->redirect('./', $code = 302);
+    }
+  });
+  $router->respond('POST', '/addpost', function(
+    $request, $response, $service, $app
+  ) {
+    session_start();
+    $user_id = $_SESSION['user_id'];
+    $title = $_POST['title'];
+    $text = $_POST['text'];
+    $date = date('Y:m:d H:i:s');
+
+    $publication = $app->db->prepare(
+      'INSERT INTO publications
+      (title, author_id, creation_date)
+      VALUES (:t, :a_id, :c_d)'
+    );
+    $article = $app->db->prepare(
+      'INSERT INTO articles
+      (publication_id, text)
+      VALUES (:p_id, :t)'
+    );
+
+    if (
+      isset($user_id) &&
+      strlen($title) != 0 &&
+      strlen($text) != 0
+    ) {
+      $publication->bindValue(':t', $title);
+      $publication->bindValue(':a_id', $user_id);
+      $publication->bindValue(':c_d', $date);
+      $publication->execute();
+      $publicationId = $app->db->lastInsertId();
+
+      $article->bindValue(':p_id', $publicationId);
+      $article->bindValue(':t', $text);
+      $article->execute();
+
+      $response->redirect('./', $code = 302);
+    }
+  });
 
   try {
     $router->dispatch();

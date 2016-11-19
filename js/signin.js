@@ -9,7 +9,6 @@ $(document).ready(function() {
     event.preventDefault();
     var nameVal = name.val();
     var passwordVal = password.val();
-    console.log(nameVal, passwordVal);
     $.ajax({
       url: './signin',
       type: 'POST',
@@ -45,13 +44,11 @@ $(document).ready(function() {
     nameError.html('');
     nameError.removeClass('sign-desc-active');
     nameError.removeClass('sign-desc-error');
-    console.log(name.val());
   });
   password.on('keyup', function() {
     password.removeClass('sign-input-error');
     passwordError.html('');
     passwordError.removeClass('sign-desc-active');
     passwordError.removeClass('sign-desc-error');
-    console.log(password.val());
   });
 });
