@@ -1,31 +1,31 @@
 {% extends 'main.twig' %}
 {% block styles %}
   {{ parent() }}
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/posts/css/main.css">
 {% endblock %}
 {% block main %}
   <div class="wrapper">
     <header class="navbar">
       <div class="container">
         {% block header %}
-          <h1 class="logo">Posts</h1>
+          <a href="/posts/articles" class="logo">Posts</a>
           <div class="menu">
             {% if user is defined %}
               <span class="person" id="account">{{ user }}</span>
               <ul class="account-menu" id="menu">
                 <li class="account-menu-item">
-                  <a href="./addpost">Add post</a>
+                  <a href="/posts/addpost">Add post</a>
                 </li>
                 <li class="account-menu-item">
-                  <a href="#">My posts</a>
+                  <a href="/posts/my">My posts</a>
                 </li>
                 <li class="account-menu-item">
-                  <a href="./logout">Log out</a>
+                  <a href="/posts/logout">Log out</a>
                 </li>
               </ul>
             {% else %}
-              <a href="./signin" class="signin-link">Sign in</a>
-              <a href="./register" class="register-link">Register</a>
+              <a href="/posts/signin" class="signin-link">Sign in</a>
+              <a href="/posts/register" class="register-link">Register</a>
             {% endif %}
           </div>
         {% endblock %}
@@ -56,6 +56,7 @@
     <footer class="footer">
       <div class="container">
         {% block footer %}
+          Made by Dmitry Marchikhin
         {% endblock %}
       </div>
     </footer>
@@ -63,5 +64,5 @@
 {% endblock %}
 {% block scripts %}
   {{ parent() }}
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="/posts/js/main.js"></script>
 {% endblock %}
