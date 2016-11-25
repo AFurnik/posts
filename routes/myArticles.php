@@ -26,6 +26,7 @@
       $text = $atricles_stmt->fetch(PDO::FETCH_ASSOC);
 
       $result[$key] = array(
+        'id' => $publication_id,
         'title' => $post['title'],
         'date' => $post['creation_date'],
         'user' => $user_name,

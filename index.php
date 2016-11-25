@@ -10,6 +10,7 @@
   require_once 'routes/register.php';
   require_once 'routes/logout.php';
   require_once 'routes/addpost.php';
+  require_once 'routes/voutes.php';
 
   try {
     $router->dispatch();

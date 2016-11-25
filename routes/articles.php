@@ -15,6 +15,11 @@
       'SELECT user_name FROM users
       WHERE user_id = :u_id'
     );
+    $voutes_stmt = $app->db->prepare(
+      'SELECT * FROM voutes
+      WHERE publication_id = :p_id'
+    );
+
     $posts_stmt->execute();
     $posts = $posts_stmt->fetchAll(PDO::FETCH_ASSOC);
     $result = array();
@@ -31,12 +36,28 @@
       $atricles_stmt->execute();
       $text = $atricles_stmt->fetch(PDO::FETCH_ASSOC);
 
+      $voutes_stmt->bindValue(':p_id', $publication_id);
+      $voutes_stmt->execute();
+      $likes = $voutes_stmt->fetchAll(PDO::FETCH_ASSOC);
+      $vouted = false;
+
+      if (isset($_SESSION['user_id'])) {
+        foreach ($likes as $k => $v) {
+          if ($v['user_id'] == $_SESSION['user_id']) {
+            $vouted = true;
+          }
+        }
+      }
+
 
       $result[$key] = array(
+        'id' => $publication_id,
         'title' => $post['title'],
         'date' => $post['creation_date'],
         'user' => $user_name['user_name'],
-        'text' => $app->parse->text($text['text'])
+        'text' => $app->parse->text($text['text']),
+        'voutes' => count($likes),
+        'vouted' => $vouted
       );
     }
 
